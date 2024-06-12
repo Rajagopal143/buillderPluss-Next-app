@@ -7,14 +7,14 @@ import React, { useEffect, useState } from "react";
 const Filter = () => {
 
   const { filterProducts } = useProductContext();
-   const [data,setData]=useState(null||{})
-   const [Loading,setLoading]=useState(false)
-  const [selectedFilters, setSelectedFilters] = useState({});
-  const [openCategories, setOpenCategories] = useState({});
-    const [responseData, setResponseData] = useState(null);
+   const [data,setData]=useState<any>(null||{})
+   const [Loading,setLoading]=useState<Boolean>(false)
+  const [selectedFilters, setSelectedFilters] = useState<any>({});
+  const [openCategories, setOpenCategories] = useState<any>({});
+    const [responseData, setResponseData] = useState<any>(null);
 
     useEffect(() => {
-        fetch("http://localhost:3000/api/product/Showfilter")
+        fetch("http://localhost:4000/api/product/Showfilter")
           .then((response) => {
             if (!response.ok) {
               throw new Error("Network response was not ok");
@@ -40,7 +40,7 @@ const Filter = () => {
 
     }, []);
     const handleFilterChange = (category: string, option: string) => {
-        setSelectedFilters((prevData: Object) => {
+        setSelectedFilters((prevData: any) => {
             prevData[category] = Array.isArray(prevData[category]) ? prevData[category] : [];
             const newCategoryFilters = prevData[category]?.includes(option)
             ? prevData[category].filter((item:string) => item !== option)
@@ -73,31 +73,15 @@ const Filter = () => {
       try {
         const data =removeEmptyArrays(selectedFilters);
         await  filterProducts(data)
-            
-          //  const response = await fetch(
-          //    "http://localhost:3000/api/product/filter",
-          //    {
-          //      method: "POST",
-          //      headers: {
-          //        "Content-Type": "application/json",
-          //      },
-          //      body: JSON.stringify(data),
-          //    }
-          //  );
-
-          //  if (!response.ok) {
-          //    throw new Error("Network response was not ok");
-          //  }
-
-          //  const res = await response.json();
-          //  setResponseData(res);
          } catch (error) {
            console.error("Error:", error);
          }
     }
   return (
-    <div className="p-4  ">
-      {Object.keys(data).map((category: string) => (
+    <div className="p-4 w-full h-[80vh]  ">
+      <div className="h-[90%] overflow-y-scroll overflow-x-hidden">
+
+      {Object.keys(data).map((category: any) => (
         <div key={category} className="mb-4">
           <button
             className="text-lg font-semibold bg-gray-200 px-4 py-2 w-56 rounded-md text-left"
@@ -116,7 +100,7 @@ const Filter = () => {
                     }
                     onChange={() => handleFilterChange(category, option)}
                     className="mr-2"
-                  />
+                    />
                   <label
                     htmlFor={`${category}-${option}`}
                     className="text-gray-700">
@@ -128,6 +112,7 @@ const Filter = () => {
           )}
         </div>
       ))}
+      </div>
           <button onClick={QueryFilter} className="bg-blue-700 px-3 py-2 rounded-md text-white capitalize">filter</button>
     </div>
   );

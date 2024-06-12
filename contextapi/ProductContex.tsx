@@ -1,15 +1,15 @@
 "use client"
 import React, { createContext, ReactNode, useContext, useEffect, useState } from "react";
 
-const ProductContext = createContext({});
+const ProductContext = createContext<any>({});
 
 export const ProductProvider = ({ children }:{children:ReactNode}) => {
-  const [products, setProducts] = useState([]);
-  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [products, setProducts] = useState<Array<Object>|any>([]);
+  const [filteredProducts, setFilteredProducts] = useState<any>([]);
 
   const fetchProducts = async (
     filters = null,
-    url = "http://localhost:3000/api/product/allProducts"
+    url = "http://localhost:4000/api/product/allProducts"
   ) => {
     try {
       console.log(filters, url);
@@ -27,7 +27,7 @@ export const ProductProvider = ({ children }:{children:ReactNode}) => {
     try {
       console.log(data);
        const response = await fetch(
-         "http://localhost:3000/api/product/filter",
+         "http://localhost:4000/api/product/filter",
          {
            method: "POST",
            headers: {
@@ -51,7 +51,7 @@ export const ProductProvider = ({ children }:{children:ReactNode}) => {
     fetchProducts();
   }, []);
 
-  const filterProducts = async (criteria: Object | null) => {
+  const filterProducts = async (criteria: Object | any) => {
     if (Object.keys(criteria).length === 0) {
       fetchProducts();
       return;

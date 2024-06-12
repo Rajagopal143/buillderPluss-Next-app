@@ -13,9 +13,10 @@ import {
 } from "@/components/ui/menubar";
 import { Button } from "@/components/ui/button";
 import { IoIosAdd } from "react-icons/io";
+import Link from "next/link";
 
 export const Navbar = () => {
-   const [file, setFile] = useState(null);
+   const [file, setFile] = useState<any>(null);
 
    const handleFileChange = (event: any) => {
      setFile(event?.target.files[0]);
@@ -25,7 +26,6 @@ export const Navbar = () => {
    const handleSubmit = async () => {
      const formData = new FormData();
      formData.append("file", file);
-
      const response = await fetch("http://localhost:3000/api/product/csv", {
        method: "POST",
        body: formData,
@@ -65,7 +65,9 @@ export const Navbar = () => {
                 Products
               </MenubarTrigger>
               <MenubarContent>
+                <Link href='/workspace/productlist'>
                 <MenubarItem>View Products</MenubarItem>
+                </Link>
                 <MenubarItem>
                   <input
                     className="hidden"
@@ -78,7 +80,9 @@ export const Navbar = () => {
               </MenubarContent>
             </MenubarMenu>
           </Menubar>
+          <Link href='/workspace/boardlist'>
           <h3 className="cursor-pointer">Boards</h3>
+          </Link>
 
           <Button className="cursor-pointer">balajik.mti</Button>
         </div>

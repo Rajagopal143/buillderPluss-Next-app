@@ -17,11 +17,7 @@ const Dropzone: React.FC<DropzoneProps> = ({ onDrop }) => {
   );
 
   const { getRootProps, getInputProps, isDragActive, isDragReject } =
-    useDropzone({
-      onDrop: onDropAccepted,
-      accept:'',
-      multiple: false,
-    });
+    useDropzone({onDropAccepted});
  const errorMessage = isDragReject ? (
    <p className="text-red-600">Unsupported file type</p>
  ) : null;
