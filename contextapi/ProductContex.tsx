@@ -9,7 +9,7 @@ export const ProductProvider = ({ children }:{children:ReactNode}) => {
 
   const fetchProducts = async (
     filters = null,
-    url = "http://localhost:4000/api/product/allProducts"
+    url = "http://23.20.122.223:4000/api/product/allProducts"
   ) => {
     try {
       console.log(filters, url);
@@ -27,7 +27,7 @@ export const ProductProvider = ({ children }:{children:ReactNode}) => {
     try {
       console.log(data);
        const response = await fetch(
-         "http://localhost:4000/api/product/filter",
+         "http://23.20.122.223:4000/api/product/filter",
          {
            method: "POST",
            headers: {

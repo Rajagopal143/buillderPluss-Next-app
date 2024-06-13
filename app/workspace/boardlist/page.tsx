@@ -13,9 +13,9 @@ const page: React.FC = () => {
    const fetchData = async () => {
      try {
        const responses = await Promise.all([
-         fetch("http://localhost:4000/api/board/"),
-         fetch("http://localhost:4000/api/board/"),
-         fetch("http://localhost:4000/api/board/"),
+         fetch("http://23.20.122.223:4000/api/board/"),
+         fetch("http://23.20.122.223:4000/api/board/"),
+         fetch("http://23.20.122.223:4000/api/board/"),
        ]);
 
        responses.forEach((response) => {
@@ -47,9 +47,9 @@ const page: React.FC = () => {
         if (error) return <div>Error: {error.message}</div>;
 
   return (
-    <div className="w-full h-full overflow-scroll ">
+    <div className="w-full h-full overflow-scroll pb-10">
       <h1 className="mt-10 ml-5 text-2xl font-bold">Recommended Boards</h1>
-      <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-1 overflow-scroll  place-items-center pb-5">
+      <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-1   place-items-center pb-5">
         {recommened.map((board: any, index: any) => (
           <BoardCard
             key={index}
@@ -59,8 +59,9 @@ const page: React.FC = () => {
           />
         ))}
       </div>
+      <hr />
       <h1 className="mt-10 ml-5 text-2xl font-bold">Trending Boards</h1>
-      <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-1 overflow-scroll  place-items-center pb-5">
+      <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-1   place-items-center pb-5">
         {trending.map((board: any, index: any) => (
           <BoardCard
             key={index}
@@ -70,8 +71,9 @@ const page: React.FC = () => {
           />
         ))}
       </div>
+      <hr />
       <h1 className="mt-10 ml-5 text-2xl font-bold">Recent Boards</h1>
-      <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-1 overflow-scroll  place-items-center pb-5">
+      <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-1   place-items-center pb-5">
         {recent.map((board: any, index: any) => (
           <BoardCard
             key={index}

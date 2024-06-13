@@ -4,9 +4,9 @@ import Sidebar from "../components/sidebar";
 
 const workspacelayout = ({children}:{children:React.ReactNode}) => {
     return (
-      <div className="h-screen ">
+      <div className="h-[100vh] overflow-y-hidden">
         <Navbar />
-        <div className="flex h-[90vh]">
+        <div className="flex h-full overflow_hidden">
           <Sidebar />
         {children}
         </div>

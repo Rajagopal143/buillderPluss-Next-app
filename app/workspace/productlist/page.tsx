@@ -23,16 +23,16 @@ const page = () => {
       return (
         <>
           <p>No products available.</p>
-          <div className="h-full  overflow-y-scroll">
+          <div className="h-fit w-[25%]  ">
             <Filter />
           </div>
         </>
       );
   }
   return (
-    <div className='flex w-full h-[90vh]'>
-      <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 overflow-scroll flex-1 mt-4 gap-5 px-3 ">
-        {products.map((product: Product,index:number) => (
+    <div className='flex w-full  h-full'>
+      <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 overflow-y-scroll  flex-1 mt-4 gap-5 px-3 ">
+        {products && products.map((product: Product,index:number) => (
           <ProductCard
             key={index}
             image={product.itemImage}
@@ -41,8 +41,7 @@ const page = () => {
           />
         ))}
       </div>
-      <div className='h-full  overflow-y-scroll'>
-
+      <div className='h-full  '>
       <Filter />
       </ div>
     </div>

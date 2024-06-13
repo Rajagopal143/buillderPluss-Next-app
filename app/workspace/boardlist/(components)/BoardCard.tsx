@@ -3,7 +3,7 @@ import React from 'react'
 
 const BoardCard = ({img1,img2,img3}:{img1:string,img2:string,img3:string}) => {
   return (
-    <div className="w-60 h-56 rounded overflow-hidden shadow-md p-1 mt-3">
+    <div className="w-[90%] h-56 rounded overflow-hidden shadow-md p-1 mt-3">
       <div className="w-full h-[74%] flex items-center justify-center overflow-hidden ">
         <Image
           className=" h-full object-cover "

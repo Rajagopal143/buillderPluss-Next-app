@@ -3,7 +3,7 @@ import React from 'react'
 
 const ProductCard = (product:Object|any) => {
   return (
-    <div className="max-w-72 h-80 rounded overflow-hidden shadow-lg p-1 ">
+    <div className="max-w-72 h-80 rounded  shadow-lg p-1 ">
       <Image className="w-full h-[60%] object-cover mx-auto" src={product.image} alt={product.name} width={100} height={0} />
       <div className="px-2 pt-2">
         <div className="font-bold text-[12px] ">{product.name}</div>
