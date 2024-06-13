@@ -14,7 +14,7 @@ const Filter = () => {
     const [responseData, setResponseData] = useState<any>(null);
 
     useEffect(() => {
-        fetch("http://localhost:4000/api/product/Showfilter")
+        fetch("http://23.20.122.223:4000/api/product/Showfilter")
           .then((response) => {
             if (!response.ok) {
               throw new Error("Network response was not ok");

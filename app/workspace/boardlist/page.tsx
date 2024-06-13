@@ -13,9 +13,9 @@ const page: React.FC = () => {
    const fetchData = async () => {
      try {
        const responses = await Promise.all([
-         fetch("http://localhost:4000/api/board/"),
-         fetch("http://localhost:4000/api/board/"),
-         fetch("http://localhost:4000/api/board/"),
+         fetch("http://23.20.122.223:4000/api/board/"),
+         fetch("http://23.20.122.223:4000/api/board/"),
+         fetch("http://23.20.122.223:4000/api/board/"),
        ]);
 
        responses.forEach((response) => {

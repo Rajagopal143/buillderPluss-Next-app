@@ -12,7 +12,7 @@ const FileUpload = () => {
     const formData = new FormData();
     formData.append("file", file);
 
-    const response = await fetch("http://localhost:3000/api/product/csv", {
+    const response = await fetch("http://23.20.122.223:3000/api/product/csv", {
       method: "POST",
       body: formData,
     });
