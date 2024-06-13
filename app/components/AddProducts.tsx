@@ -42,7 +42,7 @@
 //     };
 
 //     try {
-//       const response = await fetch("http://localhost:10001/", {
+//       const response = await fetch("http://23.20.122.223:10001/", {
 //         method: "POST",
 //         headers: {
 //           "Content-Type": "application/json",
