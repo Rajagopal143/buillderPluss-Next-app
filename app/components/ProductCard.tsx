@@ -8,7 +8,6 @@ const [updatedData, setUpdatedData] = useState(blueprintData); // Store updated 
 
 useEffect(() => {
   setUpdatedData(blueprintData); // Update component state when blueprint data changes
-  console.log(JSON.stringify(updatedData));
 }, [blueprintData]);
 
 const handleChangeUrl = (url: string) => {
