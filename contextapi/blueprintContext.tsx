@@ -329,7 +329,7 @@ export const BlueprintProvider = ({ children }: { children: ReactNode }) => {
           );
           return { ...prevData, items: updatedItems };
         });
-        console.log(blueprintData);
+        console.log(JSON.stringify(blueprintData));
     };
       return (
         <BlueprintContext.Provider
