@@ -1,13 +1,19 @@
 import { useBlueprintContext } from '@/contextapi/blueprintContext';
 import Image from 'next/image'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 const ProductCard = (product: Object | any) => {
   const { blueprintData, updateItemModelUrl } = useBlueprintContext();
+const [updatedData, setUpdatedData] = useState(blueprintData); // Store updated data
 
-  const handelchangeUrl = (url:string) => {
-    updateItemModelUrl(8, String(url));
-  }
+useEffect(() => {
+  setUpdatedData(blueprintData); // Update component state when blueprint data changes
+  console.log(JSON.stringify(updatedData));
+}, [blueprintData]);
+
+const handleChangeUrl = (url: string) => {
+  updateItemModelUrl(8, String(url));
+};
   return (
     <div className="max-w-72 h-80 rounded  shadow-lg p-1 ">
       <Image
@@ -27,11 +33,10 @@ const ProductCard = (product: Object | any) => {
         </span>
         <button
           className="bg-blue-500 hover:bg-blue-700 text-white px-1 py-1 rounded"
-          onClick={() => handelchangeUrl(product.filepath)}>
+          onClick={() => handleChangeUrl(product.filepath)}>
           Apply
         </button>
       </div>
-      
     </div>
   );
 }
