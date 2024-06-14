@@ -12,7 +12,9 @@ useEffect(() => {
 
 const handleChangeUrl = (url: string) => {
   updateItemModelUrl(8, String(url));
-};
+  };
+  
+  
   return (
     <div className="max-w-72 h-80 rounded  shadow-lg p-1 ">
       <Image
