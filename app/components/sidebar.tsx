@@ -136,11 +136,12 @@ const Sidebar = () => {
               name="Roomname"
               className="border-2 w-full border-black py-1 rounded "
               onChange={handleRoomChange}>
-              {
-                roomTypeData && Object.keys(roomTypeData).map((key, index) => (
-                  <option key={index} value={key}>{key}</option>
-                ))
-              }
+              {roomTypeData &&
+                Object.keys(roomTypeData).map((key, index) => (
+                  <option key={index} value={key}>
+                    {key}
+                  </option>
+                ))}
             </select>
             <label htmlFor="name">Room Name:</label>
             <input
@@ -200,7 +201,7 @@ const Sidebar = () => {
               <BsFullscreen className="absolute w-10 h-10 bg-black text-white p-2 z-20 rounded-lg opacity-50 hover:opacity-100 cursor-pointer right-4 top-3" />
             </a> */}
             <iframe
-              src={`http://localhost:10001/index.html?image=${canvasurl}&length=${length}&breath=${breath}&height=${height}&name=${roomName}`}
+              src={`http://23.20.122.223:10001/index.html?image=${canvasurl}&length=${length}&breath=${breath}&height=${height}&name=${roomName}`}
               className="w-full h-full z-10"></iframe>
           </div>
         </div>

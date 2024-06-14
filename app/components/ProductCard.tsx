@@ -1,20 +1,25 @@
 import { useBlueprintContext } from '@/contextapi/blueprintContext';
 import Image from 'next/image'
-import React, { useEffect, useState } from 'react'
-
+import React, { useEffect, useRef, useState } from 'react'
+import floorplan from './floorplan';
 const ProductCard = (product: Object | any) => {
-  const { blueprintData, updateItemModelUrl } = useBlueprintContext();
-const [updatedData, setUpdatedData] = useState(blueprintData); // Store updated data
-
-useEffect(() => {
-  setUpdatedData(blueprintData); // Update component state when blueprint data changes
-}, [blueprintData]);
+  const [floorplandata, setfloorplan] = useState<object>(floorplan);
+  const data = useRef(floorplandata);
+const updateItemModelUrl = (itemType: Number = 8, newModelUrl: string) => {
+  setfloorplan((prevData: Object | any) => {
+    const updatedItems = prevData.items.map((item: Object | any) =>
+      item.item_type === itemType ? { ...item, model_url: newModelUrl } : item
+    );
+    return { ...prevData, items: updatedItems };
+  });
+};
 
 const handleChangeUrl = (url: string) => {
   updateItemModelUrl(8, String(url));
+  console.log(JSON.stringify(floorplandata));
   };
   
-  
+
   return (
     <div className="max-w-72 h-80 rounded  shadow-lg p-1 ">
       <Image
