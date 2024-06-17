@@ -34,7 +34,6 @@ const updateItemModelUrl =async (itemType: Number = 8, newModelUrl: string) => {
 
 const handleChangeUrl = (url: string) => {
   updateItemModelUrl(8, String(url));
-  console.log(JSON.stringify(floorplandata));
   };
   
 
