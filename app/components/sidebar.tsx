@@ -102,10 +102,11 @@ const Sidebar = () => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
-
-        setrefresh(Math.random())
+        const data = await response.json();
+          
+        console.log(data);
           setCanvasurl(
-            `http://23.20.122.223:10001/index.html?number=${refresh}`
+            `http://23.20.122.223:10001/`
           );
           // Handle successful response (e.g., display success message)
           console.log("Room modified successfully!");
