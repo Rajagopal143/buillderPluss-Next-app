@@ -91,7 +91,7 @@ const Sidebar = () => {
 
       try {
         const response = await fetch(
-          "http://localhost:4000/api/bpfile/modifyroom",
+          "http://23.20.122.223:4000/api/bpfile/modifyroom",
           {
             method: "POST", // Set the request method to POST
             headers: { "Content-Type": "application/json" }, // Set the content type
@@ -104,7 +104,9 @@ const Sidebar = () => {
         }
 
         setrefresh(Math.random())
-          setCanvasurl(`http://localhost:10001/index.html?number=${refresh}`);
+          setCanvasurl(
+            `http://23.20.122.223:10001/index.html?number=${refresh}`
+          );
           // Handle successful response (e.g., display success message)
           console.log("Room modified successfully!");
         } catch (error) {
