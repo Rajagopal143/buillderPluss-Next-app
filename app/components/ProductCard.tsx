@@ -5,13 +5,31 @@ import floorplan from './floorplan';
 const ProductCard = (product: Object | any) => {
   
   const [floorplandata, setfloorplan] = useState<object>();
-const updateItemModelUrl = (itemType: Number = 8, newModelUrl: string) => {
-  setfloorplan((prevData: Object | any) => {
-    const updatedItems = prevData.items.map((item: Object | any) =>
-      item.item_type === itemType ? { ...item, model_url: newModelUrl } : item
-    );
-    return { ...prevData, items: updatedItems };
-  });
+const updateItemModelUrl =async (itemType: Number = 8, newModelUrl: string) => {
+ 
+  const data = {
+    itemtype: itemType,
+    filepath: newModelUrl,
+  };
+    try {
+      const response = await fetch(
+        "http://localhost:4000/api/bpfile/additems",
+        {
+          method: "POST", // Set the request method to POST
+          headers: { "Content-Type": "application/json" }, // Set the content type
+          body: JSON.stringify(data), // Convert form data to JSON string
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      // Handle successful response (e.g., display success message)
+      console.log("Item added successfully!");
+    } catch (error) {
+      console.error("Error:", error);
+      // Handle errors (e.g., display error message)
+    }
 };
 
 const handleChangeUrl = (url: string) => {
