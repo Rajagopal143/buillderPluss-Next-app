@@ -1,94 +1,109 @@
-// "use client"
-// import React, { useState } from "react";
-// import { RxCross1 } from "react-icons/rx";const ProductForm = () => {
-//   const [formData, setFormData] = useState({
-//     ProductName: "",
-//     color: "",
-//     application: "",
-//     finish: "",
-//     collectionName: "",
-//     width: "",
-//     thickness: "",
-//     size: "",
-//     length: "",
-//     coverageArea: "",
-//     tags: "",
-//     side: "",
-//     projectType: "",
-//     design: "",
-//     features: "",
-//     look: "",
-//     description: "",
-//     itemImage: "",
-//     packOf1Sheet: "",
-//   });
+import { useProductContext } from '@/contextapi/ProductContex';
+import React, { useEffect, useState } from 'react'
+import ProductCard from './ProductCard';
+import { RxCross2 } from 'react-icons/rx';
+import { useBlueprintContext } from '@/contextapi/blueprintContext';
+import Image from 'next/image';
+import { Button } from '@/components/ui/button';
 
-//   const handleChange = (e:Object|any) => {
-//     const { name, value } = e.target;
-//     setFormData({
-//       ...formData,
-//       [name]: value,
-//     });
-//   };
+interface Product {
+  No: number;
+  itemImage: string;
+  name: string;
+  price: number;
+  filepath: string;
+}
 
-//   const handleSubmit = async (e: Object | any) => {
-//     e.preventDefault();
-//     const data = {
-//       ...formData,
-//       application: formData.application.split(","),
-//       tags: formData.tags.split(","),
-//       projectType: formData.projectType.split(","),
-//       features: formData.features.split(","),
-//     };
+interface ProductListProps {
+  products: Product[];
+}
+const AddProducts = ({
+  roomName,
+  setShowProducts,
+  clickedRoom,
+}: {
+  roomName: string;
+  setShowProducts: any;
+  clickedRoom:any
+}) => {
+  const { products }: ProductListProps = useProductContext();
 
-//     try {
-//       const response = await fetch("http://23.20.122.223:10001/", {
-//         method: "POST",
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify(data),
-//       });
+  const [seletedList, setSelectedList] = useState<Product[]>([]);
 
-//       if (!response.ok) {
-//         throw new Error("Network response was not ok");
-//       }
+    useEffect(() => {
+        console.log(seletedList);
+        setSelectedList([]);
+        console.log(seletedList);
+    }, [clickedRoom]);
+  const handelSubmitProduct = async () => {
+    const data = { roomName, products };
 
-//       const result = await response.json();
-//       console.log("Server response:", result);
-//     } catch (error) {
-//       console.error("Error sending data:", error);
-//     }
-//   };
+    try {
+      const response = await fetch("http://localhost:4000/api/productoroom", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
 
-//   return (
-//     <form
-//       onSubmit={handleSubmit}
-//       className="max-w-2xl mx-auto p-4 space-y-4 absolute top-16 h-[550px] bg-white overflow-scroll right-10">
-//       <RxCross1 className="w-5 h-5 fixed right-16 bg-[#0000007a] p-2 box-content rounded-md" />
-//       {Object.keys(formData).map((key) => (
-//         <div key={key} className="flex flex-col w-56">
-//           <label htmlFor={key} className="mb-2 text-gray-700">
-//             {key.charAt(0).toUpperCase() + key.slice(1)}
-//           </label>
-//           <input
-//             type="text"
-//             id={key}
-//             name={key}
-//             value={formData[key]}
-//             onChange={handleChange}
-//             className="p-2 border border-gray-300 rounded"
-//             required
-//           />
-//         </div>
-//       ))}
-//       <button
-//         type="submit"
-//         className="w-56 p-2 bg-blue-500 text-white rounded hover:bg-blue-700">
-//         Submit
-//       </button>
-//     </form>
-//   );
-// };
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
 
-// export default ProductForm;
+      const result = await response.json();
+      console.log("Success:", result);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  return (
+    <div className="fixed w-[50vw] h-[80vh] z-[1000] left-[22%] top-[100px] bg-white overflow-y-scroll scrollbar  border">
+      <h1>{name}</h1>
+      <RxCross2
+        className="text-2xl border rounded-full p-1 absolute right-0"
+        onClick={() => setShowProducts(false)}
+      />
+      <div className="flex flex-wrap justify-start overflow-y-scroll scrollbar  flex-1 mt-4 gap-5 px-3 mb-10">
+        {products &&
+          products.map((product: Product, index: number) => (
+            <ProductCard
+              key={index}
+              product={product}
+              image={product.itemImage}
+              name={product.name}
+              price={product.price}
+              filepath={product.filepath}
+              setSelectedList={setSelectedList}
+              seletedList={seletedList}
+            />
+          ))}
+      </div>
+      <div className="w-full h-[80px] bg-red-200 sticky bottom-[-1px] flex justify-between items-center px-3  ">
+        <div className="flex overflow-x-scroll scrollbar">
+          {seletedList &&
+            seletedList.map((product: Product, index: any) => (
+              <div key={index} className="relative w-20 h-18">
+                <RxCross2 className="text-2xl border rounded-full p-1 absolute right-[-3px] top-[-3px] bg-[#ffffff80]" />
+                <Image
+                  src={product.itemImage}
+                  alt={product.name}
+                  width={20}
+                  height={20}
+                  className="p-1 w-[60px] h-[60px] rounded-lg "
+                />
+              </div>
+            ))}
+        </div>
+        <Button
+          className=" right-3 top-3"
+          onClick={() => handelSubmitProduct()}>
+          Submit
+        </Button>
+      </div>
+    </div>
+  );
+};
+
+export default AddProducts

@@ -10,20 +10,20 @@ const SearchBar = () => {
 
     const handelSubmit = async (e) => {
         e.preventDefault();
-     const response=  await handler({
-          query: search,
-          openai_api_key:
-            "",
+     const response = await handler({
+       query: search,
+       openai_api_key: process.env.NEXT_PUBLIC_OPENAPI_SECRETKEY,
      });
+      console.log(response)
         setProducts(response)
         console.log(response)
     }
   return (
-    <div className="w-[30%]    bg-white flex items-center p-2 rounded-md border">
+    <div className="w-[30%]    bg-white flex items-center p-2 rounded-full border">
       <form onSubmit={handelSubmit} className="flex items-center w-full">
         <input
           type="text"
-          placeholder="search"
+          placeholder="Chat with AI"
           className="w-full px-2 py mr-2 outline-none border-none "
           onChange={(e) => setSearch(e.target.value)}
         />
@@ -36,14 +36,14 @@ const SearchBar = () => {
 }
 type Data = {
     query: String,
-    openai_api_key:String,
+    openai_api_key:String|any,
 };
 
 
 async function handler(query: Data) {
     try {
         
-        const response = await fetch("http://23.20.122.223:5000/query", {
+        const response = await fetch("http://23.20.122.223:8000/productSearch", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

@@ -15,48 +15,53 @@ interface roomData{
   breath: Number,
   height:Number
 }
+const roomTypeData: any = {
+  kitchen: {
+    name: "kitchen",
+    length: 8,
+    breath: 6,
+    height: 5,
+  },
+  BedRoom: {
+    name: "BedRoom",
+    length: 5,
+    breath: 6,
+    height: 4,
+  },
+  Hall: {
+    name: "Hall",
+    length: 5,
+    breath: 10,
+    height: 6,
+  },
+  Bathroom: {
+    name: "Bathroom",
+    length: 4,
+    breath: 4,
+    height: 5,
+  },
+};
 
 const Sidebar = () => {
   const { refresh, setrefresh } = useBlueprintContext();
-  const [roomName, setroomName] = useState<string>('');
-  const [length, setlength] = useState<number>(0);
-  const [breath, setbreath] = useState<number>(0);
-  const [height, setheight] = useState<number>(0);
+  const [roomName, setroomName] = useState<string>(
+    roomTypeData["kitchen"].name
+  );
+  const [length, setlength] = useState<number>( roomTypeData["kitchen"].length);
+  const [breath, setbreath] = useState<number>( roomTypeData["kitchen"].breath);
+  const [height, setheight] = useState<number>(roomTypeData["kitchen"].height);
   const [file, setFile] = useState<File | null | any>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const [showCanvas, setShowCanvas] = useState<Boolean | null>(false);
   const [canvasurl, setCanvasurl] = useState<number | any>(null);
-
-  const roomTypeData: any = {
-    kitchen: {
-      name: "kitchen",
-      length: 8,
-      breath: 6,
-      height: 5,
-    },
-    BedRoom: {
-      name: "BedRoom",
-      length: 5,
-      breath: 6,
-      height: 4,
-    },
-    Hall: {
-      name: "Hall",
-      length: 5,
-      breath: 10,
-      height: 6,
-    },
-    Bathroom: {
-      name: "Bathroom",
-      length: 4,
-      breath: 4,
-      height: 5,
-    },
-  };
+  const [selectedRoomType, setSelectedRoomType] = useState(
+    Object.keys(roomTypeData)[0]
+  );
+  
   const handleDrop = (acceptedFiles: File[]) => {
     const uploadedFile = acceptedFiles[0];
     setFile(uploadedFile);
-
+setCanvasurl(`http://localhost:10001/`);
     // Create a preview URL for the imag
     const previewUrl = URL.createObjectURL(uploadedFile);
     setPreview(previewUrl);
@@ -91,7 +96,7 @@ const Sidebar = () => {
 
       try {
         const response = await fetch(
-          "http://23.20.122.223:4000/api/bpfile/modifyroom",
+          "http://localhost:4000/api/bpfile/modifyroom",
           {
             method: "POST", // Set the request method to POST
             headers: { "Content-Type": "application/json" }, // Set the content type
@@ -106,7 +111,7 @@ const Sidebar = () => {
           
         console.log(data);
           setCanvasurl(
-            `http://23.20.122.223:10001/`
+            `http://localhost:10001/index.html?search=${Math.random()}`
           );
           // Handle successful response (e.g., display success message)
           console.log("Room modified successfully!");
@@ -136,19 +141,19 @@ const Sidebar = () => {
   };
   return (
     <aside
-      className={`h-[90vh]  border-r-2  flex  ${
+      className={`h-[93vh]  border-r-2  flex  ${
         showCanvas ? "w-full " : "w-52"
       } `}>
-      <div className=" h-full w-52 flex flex-col items-center justify-between z-10 bg-white">
+      <div className=" h-full w-52 flex flex-col items-center justify-between z-10 bg-white relative">
+        <FaChevronRight
+          className="absolute bg-white text-2xl rounded-full border p-1 right-1 top-2"
+          onClick={() => setShowCanvas(!showCanvas)}
+        />
         <div className="w-full h-fit flex flex-col items-center  pb-5 rounded-b-md">
           {preview == null ? (
             <Dropzone onDrop={handleDrop} />
           ) : (
-            <div className="w-full relative">
-              <FaChevronRight
-                className="absolute right-1 top-2"
-                onClick={() => setShowCanvas(!showCanvas)}
-              />
+            <div className="w-full ">
               <Image
                 width="100"
                 height="100"
@@ -229,7 +234,7 @@ const Sidebar = () => {
         <div
           className={` ${
             showCanvas ? "left-52" : "left-[-500px]"
-          } z-[0] w-full h-[80vh] bg-red-200  `}>
+          } z-[0] w-full h-full bg-red-200  `}>
           <div className="w-full h-full">
             {/* <a
               href={`http://23.20.122.223:10001/index.html?image=${canvasurl}`}

@@ -78,6 +78,33 @@ const config = {
       },
     },
   },
-} satisfies Config
+  plugins: [
+    function ({ addUtilities }: { addUtilities :any}) {
+      addUtilities({
+        ".scrollbar::-webkit-scrollbar": {
+          width: "8px",
+          height: "8px",
+        },
+        ".scrollbar::-webkit-scrollbar-thumb": {
+          background: "black",
+          borderRadius: "4px",
+          border: "2px solid #ffffff",
+        },
+        ".scrollbar::-webkit-scrollbar-track": {
+          background: "white"
+        },
+        ".hide-scrollbar": {
+          /* Hide scrollbar for Webkit browsers (Chrome, Safari) */
+          "-webkit-overflow-scrolling": "touch",
+          "-ms-overflow-style": "none" /* IE and Edge */,
+          "scrollbar-width": "none" /* Firefox */,
+          "::-webkit-scrollbar": {
+            display: "none" /* Hide scrollbar in Webkit browsers */,
+          },
+        },
+      });
+    },
+  ],
+} satisfies Config;
 
 export default config

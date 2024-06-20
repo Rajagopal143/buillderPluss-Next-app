@@ -61,7 +61,7 @@ export const ProductProvider = ({ children }:{children:ReactNode}) => {
 
   return (
     <ProductContext.Provider
-      value={{ products, filteredProducts, filterProducts }}>
+      value={{ products, filteredProducts, filterProducts,setProducts }}>
       {children}
     </ProductContext.Provider>
   );

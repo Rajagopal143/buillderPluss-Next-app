@@ -1,15 +1,17 @@
 "use client"
-import { useState } from "react";
+import React, { cloneElement, ReactElement, useState } from "react";
 import Filter from "../components/Filter";
 import { Navbar } from "../components/NavBar";
 import RoomDetails from "../components/RoomDetails";
 import Sidebar from "../components/sidebar";
 import { Button } from "@/components/ui/button";
 import { FcLeft } from "react-icons/fc";
+import { HiOutlineAdjustmentsHorizontal } from "react-icons/hi2";
+import { useBlueprintContext } from "@/contextapi/blueprintContext";
 
 const workspacelayout = ({ children }: { children: React.ReactNode }) => {
-  const [sidebar,setSidebar]= useState<Boolean>(true)
-  const [filter,setfilter]= useState<Boolean>(false)
+  const { showFilter,setShowfilter } = useBlueprintContext();
+  const [sidebar, setSidebar] = useState<Boolean>(true)
   const [roomDetails, setroomDetails] = useState<Boolean>(false)
   const [ShowProduct, setShowProduct] = useState<Boolean>(false);
     return (
@@ -17,19 +19,9 @@ const workspacelayout = ({ children }: { children: React.ReactNode }) => {
         <Navbar setShowProduct={setShowProduct} ShowProduct={ShowProduct} />
         <div className="flex h-full overflow_hidden relative">
           {sidebar ? <Sidebar /> : <></>}
-          {filter ? (
-            <Filter setfilter={setfilter} />
-          ) : (
-            <>
-              <div
-                className="absolute left-[250px] bottom-[100px]"
-                onClick={() => setfilter(true)}>
-                <Button>Filter</Button>
-              </div>
-            </>
-          )}
+          {showFilter ? <Filter setfilter={setShowfilter} /> : null}
           {children}
-          
+
           {roomDetails ? (
             <RoomDetails setroomDetails={setroomDetails} />
           ) : (

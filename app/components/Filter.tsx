@@ -13,7 +13,7 @@ const Filter = ({ setfilter }: { setfilter :any}) => {
   const [responseData, setResponseData] = useState<any>(null);
 
   useEffect(() => {
-    fetch("http://23.20.122.223:4000/api/product/Showfilter")
+    fetch("http://localhost:4000/api/product/Showfilter")
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -77,8 +77,8 @@ const Filter = ({ setfilter }: { setfilter :any}) => {
     }
   };
   return (
-    <div className="p-4 w-fit h-[80vh] ">
-      <div className="h-[90%] overflow-y-scroll overflow-x-hidden">
+    <div className="p-4 w-fit h-[60vh] fixed top-24 left-[230px] bg-white rounded-2xl">
+      <div className="h-[90%] overflow-y-scroll scrollbar overflow-x-hidden">
         {Object.keys(data).map((category: any) => (
           <div key={category} className="mb-4">
             <button

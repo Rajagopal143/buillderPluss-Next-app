@@ -66,11 +66,13 @@ export const Navbar = ({
           </Menubar>
           <Menubar>
             <MenubarMenu>
-              <MenubarTrigger
-                className="cursor-pointer"
-                onClick={() => setShowProduct(!ShowProduct)}>
-                Products
-              </MenubarTrigger>
+              <Link href="/workspace/productlist">
+                <MenubarTrigger
+                  className="cursor-pointer"
+                  onClick={() => setShowProduct(!ShowProduct)}>
+                  Products
+                </MenubarTrigger>
+              </Link>
               {/* <MenubarContent> */}
               {/* <Link href='/workspace/productlist'>
                 <MenubarItem>View Products</MenubarItem>

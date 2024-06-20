@@ -16,11 +16,11 @@ const BlueprintContext = createContext<object | any>({});
 
 export const BlueprintProvider = ({ children }: { children: ReactNode }) => {
 
-    const [refresh, setrefresh] = useState<Object | null | any>();
-  
+    const [showFilter, setShowfilter] = useState<boolean>(false);
  
       return (
-        <BlueprintContext.Provider value={{ refresh, setrefresh }}>
+        <BlueprintContext.Provider
+          value={{ showFilter, setShowfilter}}>
           {children}
         </BlueprintContext.Provider>
       );
