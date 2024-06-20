@@ -7,6 +7,7 @@ const ProductCard = (product: Object | any) => {
   const [floorplandata, setfloorplan] = useState<object>();
 const updateItemModelUrl =async (itemType: Number = 8, newModelUrl: string) => {
  
+  
   const data = {
     itemtype: itemType,
     filepath: newModelUrl,
