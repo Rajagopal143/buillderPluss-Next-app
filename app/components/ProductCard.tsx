@@ -7,6 +7,7 @@ const ProductCard = (product: Object | any) => {
 
   const handelchangeUrl = (url:string) => {
     updateItemModelUrl(8, String(url));
+    console.log(JSON.stringify(blueprintData));
   }
   return (
     <div className="max-w-72 h-80 rounded  shadow-lg p-1 ">

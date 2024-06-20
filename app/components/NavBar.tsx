@@ -15,28 +15,33 @@ import { Button } from "@/components/ui/button";
 import { IoIosAdd } from "react-icons/io";
 import Link from "next/link";
 
-export const Navbar = () => {
-   const [file, setFile] = useState<any>(null);
+export const Navbar = ({
+  setShowProduct,
+  ShowProduct,
+}: {
+  setShowProduct: any;
+  ShowProduct:any}) => {
+  const [file, setFile] = useState<any>(null);
 
-   const handleFileChange = (event: any) => {
-     setFile(event?.target.files[0]);
-     handleSubmit();
-   };
+  const handleFileChange = (event: any) => {
+    setFile(event?.target.files[0]);
+    handleSubmit();
+  };
 
-   const handleSubmit = async () => {
-     const formData = new FormData();
-     formData.append("file", file);
-     const response = await fetch("http://23.20.122.223:3000/api/product/csv", {
-       method: "POST",
-       body: formData,
-     });
+  const handleSubmit = async () => {
+    const formData = new FormData();
+    formData.append("file", file);
+    const response = await fetch("http://23.20.122.223:3000/api/product/csv", {
+      method: "POST",
+      body: formData,
+    });
 
-     if (response.ok) {
-       console.log("File uploaded successfully");
-     } else {
-       console.error("File upload failed");
-     }
-   };
+    if (response.ok) {
+      console.log("File uploaded successfully");
+    } else {
+      console.error("File upload failed");
+    }
+  };
 
   return (
     <nav className="border-b-2">
@@ -61,11 +66,13 @@ export const Navbar = () => {
           </Menubar>
           <Menubar>
             <MenubarMenu>
-              <MenubarTrigger className="cursor-pointer">
+              <MenubarTrigger
+                className="cursor-pointer"
+                onClick={() => setShowProduct(!ShowProduct)}>
                 Products
               </MenubarTrigger>
-              <MenubarContent>
-                <Link href='/workspace/productlist'>
+              {/* <MenubarContent> */}
+              {/* <Link href='/workspace/productlist'>
                 <MenubarItem>View Products</MenubarItem>
                 </Link>
                 <MenubarItem>
@@ -75,13 +82,13 @@ export const Navbar = () => {
                     id="fileUpload"
                     onChange={handleFileChange}
                   />
-                  <label htmlFor="fileUpload">Add Products</label>
-                </MenubarItem>
-              </MenubarContent>
+                  <label htmlFor="fileUpload">Add Products</label> */}
+              {/* </MenubarItem> */}
+              {/* </MenubarContent> */}
             </MenubarMenu>
           </Menubar>
-          <Link href='/workspace/boardlist'>
-          <h3 className="cursor-pointer">Boards</h3>
+          <Link href="/workspace/boardlist">
+            <h3 className="cursor-pointer">Boards</h3>
           </Link>
 
           <Button className="cursor-pointer">balajik.mti</Button>

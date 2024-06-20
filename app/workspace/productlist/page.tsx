@@ -46,7 +46,7 @@ const page = () => {
           ))}
       </div>
       <div className="h-full  ">
-        <Filter />
+       
       </div>
     </div>
   );
