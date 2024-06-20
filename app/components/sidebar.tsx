@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { FaChevronRight } from "react-icons/fa";
 import { BsFullscreen } from "react-icons/bs";
 import Link from "next/link";
+import { useBlueprintContext } from "@/contextapi/blueprintContext";
 
 
 interface roomData{
@@ -16,6 +17,7 @@ interface roomData{
 }
 
 const Sidebar = () => {
+  const { refresh, setrefresh } = useBlueprintContext();
   const [roomName, setroomName] = useState<string>('');
   const [length, setlength] = useState<number>(0);
   const [breath, setbreath] = useState<number>(0);
@@ -23,7 +25,7 @@ const Sidebar = () => {
   const [file, setFile] = useState<File | null | any>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const [showCanvas, setShowCanvas] = useState<Boolean | null>(false);
-  const [canvasurl, setCanvasurl] = useState<number | null>(null);
+  const [canvasurl, setCanvasurl] = useState<number | any>(null);
 
   const roomTypeData: any = {
     kitchen: {
@@ -79,7 +81,41 @@ const Sidebar = () => {
       setCanvasurl(1);
     }
   }, []);
-  const generateFloorplan = () => {
+  const generateFloorplan = async () => {
+    const roomData = {
+      name: roomName,
+      length: length,
+      breadth: breath,
+      height: height,
+    };
+
+      try {
+        const response = await fetch(
+          "http://23.20.122.223:4000/api/bpfile/modifyroom",
+          {
+            method: "POST", // Set the request method to POST
+            headers: { "Content-Type": "application/json" }, // Set the content type
+            body: JSON.stringify(roomData), // Convert room data to JSON string for body
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+          
+        console.log(data);
+          setCanvasurl(
+            `http://23.20.122.223:10001/`
+          );
+          // Handle successful response (e.g., display success message)
+          console.log("Room modified successfully!");
+        } catch (error) {
+        setCanvasurl(`error`);
+        console.error("Error:", error);
+        // Handle errors (e.g., display error message)
+      }
+    console.log(canvasurl)
     setShowCanvas(true);
   };
   const handleRoomChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -136,11 +172,12 @@ const Sidebar = () => {
               name="Roomname"
               className="border-2 w-full border-black py-1 rounded "
               onChange={handleRoomChange}>
-              {
-                roomTypeData && Object.keys(roomTypeData).map((key, index) => (
-                  <option key={index} value={key}>{key}</option>
-                ))
-              }
+              {roomTypeData &&
+                Object.keys(roomTypeData).map((key, index) => (
+                  <option key={index} value={key}>
+                    {key}
+                  </option>
+                ))}
             </select>
             <label htmlFor="name">Room Name:</label>
             <input
@@ -200,7 +237,8 @@ const Sidebar = () => {
               <BsFullscreen className="absolute w-10 h-10 bg-black text-white p-2 z-20 rounded-lg opacity-50 hover:opacity-100 cursor-pointer right-4 top-3" />
             </a> */}
             <iframe
-              src={`http://localhost:10001/index.html?image=${canvasurl}&length=${length}&breath=${breath}&height=${height}&name=${roomName}`}
+              src={canvasurl}
+              name={refresh}
               className="w-full h-full z-10"></iframe>
           </div>
         </div>

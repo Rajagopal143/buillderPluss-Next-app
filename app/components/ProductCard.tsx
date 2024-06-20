@@ -1,14 +1,42 @@
 import { useBlueprintContext } from '@/contextapi/blueprintContext';
 import Image from 'next/image'
-import React from 'react'
-
+import React, { useEffect, useRef, useState } from 'react'
+import floorplan from './floorplan';
 const ProductCard = (product: Object | any) => {
-  const { blueprintData, updateItemModelUrl } = useBlueprintContext();
+  
+  const [floorplandata, setfloorplan] = useState<object>();
+const updateItemModelUrl =async (itemType: Number = 8, newModelUrl: string) => {
+ 
+  const data = {
+    itemtype: itemType,
+    filepath: newModelUrl,
+  };
+    try {
+      const response = await fetch(
+        "http://23.20.122.223:4000/api/bpfile/additems",
+        {
+          method: "POST", // Set the request method to POST
+          headers: { "Content-Type": "application/json" }, // Set the content type
+          body: JSON.stringify(data), // Convert form data to JSON string
+        }
+      );
 
-  const handelchangeUrl = (url:string) => {
-    updateItemModelUrl(8, String(url));
-    console.log(JSON.stringify(blueprintData));
-  }
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      // Handle successful response (e.g., display success message)
+      console.log("Item added successfully!");
+    } catch (error) {
+      console.error("Error:", error);
+      // Handle errors (e.g., display error message)
+    }
+};
+
+const handleChangeUrl = (url: string) => {
+  updateItemModelUrl(8, String(url));
+  };
+  
+
   return (
     <div className="max-w-72 h-80 rounded  shadow-lg p-1 ">
       <Image
@@ -28,11 +56,10 @@ const ProductCard = (product: Object | any) => {
         </span>
         <button
           className="bg-blue-500 hover:bg-blue-700 text-white px-1 py-1 rounded"
-          onClick={() => handelchangeUrl(product.filepath)}>
+          onClick={() => handleChangeUrl(product.filepath)}>
           Apply
         </button>
       </div>
-      
     </div>
   );
 }

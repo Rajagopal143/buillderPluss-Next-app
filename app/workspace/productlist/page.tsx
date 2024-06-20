@@ -33,7 +33,7 @@ const page = () => {
   }
   return (
     <div className="flex w-full  h-full">
-      <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 overflow-y-scroll  flex-1 mt-4 gap-5 px-3 ">
+      <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 overflow-y-scroll  flex-1 mt-4 gap-5 px-3 mb-10">
         {products &&
           products.map((product: Product, index: number) => (
             <ProductCard
