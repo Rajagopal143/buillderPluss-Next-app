@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import Dropzone from "./Dropzone";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
@@ -9,47 +9,23 @@ import Link from "next/link";
 import { useBlueprintContext } from "@/contextapi/blueprintContext";
 
 
-interface roomData{
+type roomData={
   name: string,
   length: Number,
   breath: Number,
   height:Number
 }
 const roomTypeData: any = {
-  kitchen: {
-    name: "kitchen",
-    length: 8,
-    breath: 6,
-    height: 5,
-  },
-  BedRoom: {
-    name: "BedRoom",
-    length: 5,
-    breath: 6,
-    height: 4,
-  },
-  Hall: {
-    name: "Hall",
-    length: 5,
-    breath: 10,
-    height: 6,
-  },
-  Bathroom: {
-    name: "Bathroom",
-    length: 4,
-    breath: 4,
-    height: 5,
-  },
+
 };
 
 const Sidebar = () => {
   const { refresh, setrefresh } = useBlueprintContext();
-  const [roomName, setroomName] = useState<string>(
-    roomTypeData["kitchen"].name
-  );
-  const [length, setlength] = useState<number>( roomTypeData["kitchen"].length);
-  const [breath, setbreath] = useState<number>( roomTypeData["kitchen"].breath);
-  const [height, setheight] = useState<number>(roomTypeData["kitchen"].height);
+  const [rooms, setRooms] = useState<any>([]);
+  const [roomName, setroomName] = useState<string>("");
+  const [length, setlength] = useState<number>(0);
+  const [breath, setbreath] = useState<number>( 0);
+  const [height, setheight] = useState<number>(3);
   const [file, setFile] = useState<File | null | any>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const [showCanvas, setShowCanvas] = useState<Boolean | null>(false);
@@ -61,7 +37,6 @@ const Sidebar = () => {
   const handleDrop = (acceptedFiles: File[]) => {
     const uploadedFile = acceptedFiles[0];
     setFile(uploadedFile);
-setCanvasurl(`http://localhost:10001/`);
     // Create a preview URL for the imag
     const previewUrl = URL.createObjectURL(uploadedFile);
     setPreview(previewUrl);
@@ -125,29 +100,80 @@ setCanvasurl(`http://localhost:10001/`);
   };
   const handleRoomChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedRoomType = event.target.value;
-
+    const filteredRooms = rooms.filter(
+      (room: any) => room["Room name"] === selectedRoomType
+    );
+ console.log(filteredRooms);
     if (selectedRoomType) {
-      setroomName(roomTypeData[selectedRoomType].name);
-      setlength(roomTypeData[selectedRoomType].length);
-      setbreath(roomTypeData[selectedRoomType].breath);
-      setheight(roomTypeData[selectedRoomType].height);
+      setroomName(filteredRooms[0]["Room name"]);
+      setlength(filteredRooms[0]["length"]);
+      setbreath(filteredRooms[0]["breadth"]);
+      setheight(filteredRooms.height);
     } else {
       // Handle cases where no room type is selected (optional)
       setroomName("");
       setlength(0);
       setbreath(0);
-      setheight(0);
     }
   };
+    const handleSubmit = async (event: FormEvent) => {
+      event.preventDefault();
+      if (!file) {
+        console.error("No file selected");
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("example", `"Give All Room with details as like below in json " Room name : Bedroom Dimension : 10' x 9' length:10 breath:9 wall:[ length : 10',Door : "Yes",Window:"No" length : 9',Door : "No",Window:"No" length : 10',Door : "No",Window:"Yes" length : 9',Door : "No",Window:"No"]`);
+
+      try {
+        const response = await fetch("http://23.20.122.223:8000/roomDetails/", {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+          },
+          body: formData,
+        });
+
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+
+        const data = await response.json();
+        const rooms:any = {
+          
+        }
+        data.rooms.forEach((room:any) => {
+      
+        rooms[room["Room name"]] = {
+            name:room["Room name"],
+            length: room.length,
+            breath: room.breadth,
+            height:3,
+          };
+        })
+        setRooms(data.rooms);
+        console.log(data.rooms);
+      } catch (error) {
+        console.error("Error uploading file:", error);
+      }
+    };
+
   return (
     <aside
       className={`h-[93vh]  border-r-2  flex  ${
         showCanvas ? "w-full " : "w-52"
       } `}>
-      <div className=" h-full w-52 flex flex-col items-center justify-between z-10 bg-white relative">
+      <div className=" h-full w-52 flex flex-col items-center justify-between  bg-white relative">
         <FaChevronRight
           className="absolute bg-white text-2xl rounded-full border p-1 right-1 top-2"
-          onClick={() => setShowCanvas(!showCanvas)}
+          onClick={() => {
+            setShowCanvas(!showCanvas);
+            setCanvasurl(
+              `http://localhost:10001/index.html?search=${Math.random()}`
+            );
+          }}
         />
         <div className="w-full h-fit flex flex-col items-center  pb-5 rounded-b-md">
           {preview == null ? (
@@ -161,11 +187,14 @@ setCanvasurl(`http://localhost:10001/`);
                 alt="previewImage"
                 className="w-full h-40 object-contain p-3"
               />
-              <Button
-                className="bg-black mx-auto"
-                onClick={() => setPreview(null)}>
-                Change Image
-              </Button>
+              <div className="flex items-center justify-around">
+                <Button className="bg-black " onClick={() => setPreview(null)}>
+                  Change
+                </Button>
+                <Button className="bg-black  " onClick={(e) => handleSubmit(e)}>
+                  Upload
+                </Button>
+              </div>
             </div>
           )}
           <p>----------OR---------</p>
@@ -176,11 +205,12 @@ setCanvasurl(`http://localhost:10001/`);
               id="Roomname"
               name="Roomname"
               className="border-2 w-full border-black py-1 rounded "
-              onChange={handleRoomChange}>
-              {roomTypeData &&
-                Object.keys(roomTypeData).map((key, index) => (
-                  <option key={index} value={key}>
-                    {key}
+              onChange={handleRoomChange}
+              disabled={rooms.length == 0}>
+              {rooms &&
+                rooms.map((room:any, index:number) => (
+                  <option key={index} value={room["Room name"]}>
+                    {room["Room name"]}
                   </option>
                 ))}
             </select>
@@ -192,6 +222,7 @@ setCanvasurl(`http://localhost:10001/`);
               className="border-2 w-full border-black py-1 rounded "
               value={roomName}
               placeholder="Room Name"
+              disabled={rooms.length == 0}
               onChange={(e) => setroomName(e.target.value)}
             />
             <label htmlFor="Length">Length:</label>

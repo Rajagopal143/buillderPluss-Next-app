@@ -1,6 +1,6 @@
 "use client"
+import BoardCard from '@/components/BoardCard';
 import React, { useEffect, useState } from 'react'
-import BoardCard from './(components)/BoardCard';
 
 const page: React.FC = () => {
   const [recommened, setrecommened] = useState<any>([]);

@@ -8,7 +8,7 @@ const SearchBar = () => {
 
     const { setProducts } = useProductContext();
 
-    const handelSubmit = async (e) => {
+    const handelSubmit = async (e:any) => {
         e.preventDefault();
      const response = await handler({
        query: search,

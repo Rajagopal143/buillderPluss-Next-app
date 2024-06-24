@@ -77,7 +77,7 @@ const Filter = ({ setfilter }: { setfilter :any}) => {
     }
   };
   return (
-    <div className="p-4 w-fit h-[60vh] fixed top-24 left-[230px] bg-white rounded-2xl">
+    <div className="p-4 w-fit h-[60vh] z-[1000] fixed top-24 left-[200px] bg-white rounded-2xl">
       <div className="h-[90%] overflow-y-scroll scrollbar overflow-x-hidden">
         {Object.keys(data).map((category: any) => (
           <div key={category} className="mb-4">

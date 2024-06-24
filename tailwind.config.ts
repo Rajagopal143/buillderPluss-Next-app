@@ -1,17 +1,13 @@
-
-
-
-
 import type { Config } from "tailwindcss"
 
 const config = {
   darkMode: ["class"],
   content: [
-    "./pages/**/*.{ts,tsx}",
-    "./components/**/*.{ts,tsx}",
-    "./app/**/*.{ts,tsx}",
-    "./src/**/*.{ts,tsx}",
-  ],
+    './pages/**/*.{ts,tsx}',
+    './components/**/*.{ts,tsx}',
+    './app/**/*.{ts,tsx}',
+    './src/**/*.{ts,tsx}',
+	],
   prefix: "",
   theme: {
     container: {
@@ -78,33 +74,7 @@ const config = {
       },
     },
   },
-  plugins: [
-    function ({ addUtilities }: { addUtilities :any}) {
-      addUtilities({
-        ".scrollbar::-webkit-scrollbar": {
-          width: "8px",
-          height: "8px",
-        },
-        ".scrollbar::-webkit-scrollbar-thumb": {
-          background: "black",
-          borderRadius: "4px",
-          border: "2px solid #ffffff",
-        },
-        ".scrollbar::-webkit-scrollbar-track": {
-          background: "white"
-        },
-        ".hide-scrollbar": {
-          /* Hide scrollbar for Webkit browsers (Chrome, Safari) */
-          "-webkit-overflow-scrolling": "touch",
-          "-ms-overflow-style": "none" /* IE and Edge */,
-          "scrollbar-width": "none" /* Firefox */,
-          "::-webkit-scrollbar": {
-            display: "none" /* Hide scrollbar in Webkit browsers */,
-          },
-        },
-      });
-    },
-  ],
-} satisfies Config;
+  plugins: [require("tailwindcss-animate")],
+} satisfies Config
 
 export default config

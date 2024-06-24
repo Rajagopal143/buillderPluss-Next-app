@@ -1,6 +1,5 @@
 import Image from "next/image";
-import React, { useEffect, useRef, useState } from "react";
-import floorplan from "./floorplan";
+import { useState } from "react";
 const ProductCard = ({
   product,
   image,
@@ -11,38 +10,17 @@ const ProductCard = ({
   seletedList,
 }:any) => {
   const [floorplandata, setfloorplan] = useState<object>();
-  const updateItemModelUrl = async (
-    itemType: Number = 8,
-    newModelUrl: string
-  ) => {
-    const data = {
-      itemtype: itemType,
-      filepath: newModelUrl,
-    };
-    try {
-      const response = await fetch(
-        "http://localhost:4000/api/bpfile/additems",
-        {
-          method: "POST", // Set the request method to POST
-          headers: { "Content-Type": "application/json" }, // Set the content type
-          body: JSON.stringify(data), // Convert form data to JSON string
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      // Handle successful response (e.g., display success message)
-      console.log("Item added successfully!");
-    } catch (error) {
-      console.error("Error:", error);
-      // Handle errors (e.g., display error message)
-    }
-  };
+  
 
   const handleChangeUrl = (url: string,product:any) => {
-    updateItemModelUrl(8, String(url));
-    setSelectedList([...seletedList,product])
+    setSelectedList((prev:Array<object>) => {
+      if (prev== null) {
+        return [product]
+      } else {
+        return  [...prev, product]
+        
+      }
+    })
   };
 
   return (
