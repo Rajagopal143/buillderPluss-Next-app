@@ -15,6 +15,7 @@ const WallDetails = ({ props }: any) => {
             className="text-3xl shadow rounded-full p-1  bg-[#ffffff93] backdrop-blur-sm absolute -top-7 -right-4 "
             onClick={() => setwalldetails(false)}
           />
+          
         </h1>
         <h3>
           <span className="font-bold ml-4">length</span>:{props.length}
