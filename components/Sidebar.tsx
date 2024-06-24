@@ -71,7 +71,7 @@ const Sidebar = () => {
 
       try {
         const response = await fetch(
-          "http://localhost:4000/api/bpfile/modifyroom",
+          "http://http://23.20.122.223:4000/api/bpfile/modifyroom",
           {
             method: "POST", // Set the request method to POST
             headers: { "Content-Type": "application/json" }, // Set the content type
@@ -86,7 +86,7 @@ const Sidebar = () => {
           
         console.log(data);
           setCanvasurl(
-            `http://localhost:10001/index.html?search=${Math.random()}`
+            `http://http://23.20.122.223:10001/index.html?search=${Math.random()}`
           );
           // Handle successful response (e.g., display success message)
           console.log("Room modified successfully!");
@@ -170,9 +170,7 @@ const Sidebar = () => {
           className="absolute bg-white text-2xl rounded-full border p-1 right-1 top-2"
           onClick={() => {
             setShowCanvas(!showCanvas);
-            setCanvasurl(
-              `http://localhost:10001/index.html?search=${Math.random()}`
-            );
+            setCanvasurl(`http://23.20.122.223:10001/`);
           }}
         />
         <div className="w-full h-fit flex flex-col items-center  pb-5 rounded-b-md">
