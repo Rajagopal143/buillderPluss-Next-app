@@ -42,13 +42,16 @@ const AddProducts = ({
   const handelSubmitProduct = async () => {
     const data = { roomName: roomName, products: seletedList };
     try {
-      const response = await fetch("http://localhost:4000/api/productoroom", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_IP_ADDRESS}:4000/api/productoroom`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Network response was not ok");
@@ -72,14 +75,16 @@ const AddProducts = ({
   };
 
   return (
-    <div className="w-full h-full fixed flex items-center justify-center top-0 left-0 bg-[#00000063] z-[10] backdrop-blur-sm">
-      <div className=" w-[50vw] h-[80vh] z-[1000]  bg-white overflow-y-scroll scrollbar absolute  border  rounded-md">
-        <h1 className="font-bold text-2xl ml-3 mt-3 sticky top-0 bg-white py-2 flex  justify-between">
-          {roomName}
+    <div className="w-full h-full fixed flex items-center justify-center top-0 left-0 bg-[#00000063]  backdrop-blur-sm">
+      <div className=" w-[50vw] h-[80vh] relative  bg-white overflow-y-scroll scrollbar   border  rounded-md">
+        <div className="absolute z-50 -right-5">
           <RxCross2
-            className="text-3xl shadow rounded-full p-1  bg-[#ffffff93] backdrop-blur-sm absolute -top-7 -right-4 "
+            className="text-3xl shadow rounded-full p-1  bg-[#ffffff93] backdrop-blur-sm "
             onClick={() => setShowProducts(false)}
           />
+        </div>
+        <h1 className="font-bold text-2xl ml-3 mt-3 sticky top-0 bg-white py-2 flex  justify-between">
+          {roomName}
         </h1>
 
         <div className="flex flex-wrap items-start justify-center overflow-y-scroll scrollbar  flex-1 mt-4 gap-5 px-3 mb-10">

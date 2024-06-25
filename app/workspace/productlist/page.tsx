@@ -20,10 +20,18 @@ interface ProductListProps {
 }
 const page = () => {
   const { products }: ProductListProps = useProductContext();
+  const { setShowfilter } = useBlueprintContext();
   console.log(products);
+  if (products.length == 0) {
+    return (
+      <div>
+        No products loaded
+      </div>
+    );
+  }
   return (
     <>
-      <div className="flex w-full  h-full">
+      <div className="flex w-full  h-full relative">
         <div className="flex flex-wrap justify-center overflow-y-scroll scrollbar  flex-1 mt-4 gap-5 px-3 mb-10">
           {products &&
             products.map((product: Product, index: number) => (
@@ -36,8 +44,19 @@ const page = () => {
               />
             ))}
         </div>
+        <div className="absolute bottom-24  flex justify-center w-full gap-5 items-center ">
+          <HiOutlineAdjustmentsHorizontal
+            className="text-[40px] bg-white rounded-full p-1 shadow"
+            onClick={() =>
+              setShowfilter((prev: boolean) => {
+                return !prev;
+              })
+            }
+          />
+          <SearchBar />
+        </div>
       </div>
-      
+
       {/* <div>{showProducts?<AddProducts/>:null}</div> */}
     </>
   );

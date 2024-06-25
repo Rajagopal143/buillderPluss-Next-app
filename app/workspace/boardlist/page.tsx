@@ -9,13 +9,15 @@ const page: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<any>(null);
 
+
  useEffect(() => {
    const fetchData = async () => {
      try {
        const responses = await Promise.all([
-         fetch("http://localhost:4000/api/board/"),
-         fetch("http://localhost:4000/api/board/"),
-         fetch("http://localhost:4000/api/board/"),
+         fetch(`${process.env.NEXT_PUBLIC_IP_ADDRESS}:4000/api/board/`),
+         fetch(`${process.env.NEXT_PUBLIC_IP_ADDRESS}:4000/api/board/`),
+         fetch(`${process.env.NEXT_PUBLIC_IP_ADDRESS}:4000/api/board/`)
+         
        ]);
 
        responses.forEach((response) => {

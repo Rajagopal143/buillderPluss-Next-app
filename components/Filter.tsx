@@ -13,7 +13,7 @@ const Filter = ({ setfilter }: { setfilter :any}) => {
   const [responseData, setResponseData] = useState<any>(null);
 
   useEffect(() => {
-    fetch("http://localhost:4000/api/product/Showfilter")
+    fetch(`${process.env.NEXT_PUBLIC_IP_ADDRESS}:4000/api/product/Showfilter`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -77,7 +77,7 @@ const Filter = ({ setfilter }: { setfilter :any}) => {
     }
   };
   return (
-    <div className="p-4 w-fit h-[60vh] z-[1000] fixed top-24 left-[200px] bg-white rounded-2xl">
+    <div className="p-4 w-fit h-[60vh] z-[1000] fixed top-24 left-[5%] bg-white rounded-2xl">
       <div className="h-[90%] overflow-y-scroll scrollbar overflow-x-hidden">
         {Object.keys(data).map((category: any) => (
           <div key={category} className="mb-4">

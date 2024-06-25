@@ -22,7 +22,7 @@ const ProductpageCard = ({
     };
     try {
       const response = await fetch(
-        "http://localhost:4000/api/bpfile/additems",
+        `${process.env.NEXT_PUBLIC_IP_ADDRESS}:4000/api/bpfile/additems`,
         {
           method: "POST", // Set the request method to POST
           headers: { "Content-Type": "application/json" }, // Set the content type

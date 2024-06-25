@@ -22,14 +22,14 @@ const WallDetails = ({ props }: any) => {
         {props?.sharedRoom?.length == 1 ? (
           <div>
             <h3 className="font-bold ml-4">
-            <span></span>  Shared Room Name:{props.sharedRoom[0].RoomName}
+              <span></span> Shared Room Name:{props.sharedRoom[0].RoomName}
             </h3>
             <h3 className="font-bold ml-4">
-             <span></span> Shared Room Id:{props.sharedRoom[0].roomId}
+              <span></span> Shared Room Id:{props.sharedRoom[0].roomId}
             </h3>
           </div>
         ) : null}
-        <WallForm />
+        <WallForm wallId={props?.wallId} />
       </div>
     </div>
   );

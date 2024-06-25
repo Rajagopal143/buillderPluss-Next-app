@@ -9,13 +9,11 @@ export const ProductProvider = ({ children }:{children:ReactNode}) => {
 
   const fetchProducts = async (
     filters = null,
-    url = "http://localhost:4000/api/product/allProducts"
+    url = `${process.env.NEXT_PUBLIC_IP_ADDRESS}:4000/api/product/allProducts`
   ) => {
     try {
       console.log(filters, url);
-      const response = await fetch(
-        url
-      );
+      const response = await fetch(url);
       const data = await response.json();
       setProducts(data);
       setFilteredProducts(data); // Initially, no filters applied or filtered data
@@ -27,7 +25,7 @@ export const ProductProvider = ({ children }:{children:ReactNode}) => {
     try {
       console.log(data);
        const response = await fetch(
-         "http://localhost:4000/api/product/filter",
+         `${process.env.NEXT_PUBLIC_IP_ADDRESS}:4000/api/product/filter`,
          {
            method: "POST",
            headers: {

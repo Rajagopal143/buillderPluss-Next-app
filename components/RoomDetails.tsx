@@ -6,10 +6,8 @@ import React, {  useEffect, useState } from "react";
 import { MdAddCircle } from "react-icons/md";
 import { RxCross2 } from "react-icons/rx";
 import AddProducts from "./AddProducts";
-import Loading from "./Loading";
-import { useRouter } from "next/navigation";
-import { BiAddToQueue } from "react-icons/bi";
 import { CgAdd } from "react-icons/cg";
+import { toast } from "sonner";
 
 const RoomDetails = ({ setroomDetails }: { setroomDetails: any }) => {
   const [rooms, setRooms] = useState<Array<Object>>([]);
@@ -22,10 +20,17 @@ const RoomDetails = ({ setroomDetails }: { setroomDetails: any }) => {
   useEffect(() => {
     // Fetch the data from the API (assuming the data is available at the given endpoint)
     const fetchData = async () => {
-      const response = await fetch("http://localhost:4000/api/getgraph");
-      const data = await response.json();
-      console.log(data);
-      setRooms(data);
+      try {
+        
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_IP_ADDRESS}:4000/api/getgraph`
+        );
+        const data = await response.json();
+        console.log(data);
+        setRooms(data);
+      } catch (err:any) {
+        toast(err.message)
+      }
     };
 
     fetchData();

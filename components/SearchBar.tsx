@@ -7,7 +7,8 @@ const SearchBar = () => {
     const [search, setSearch] = useState<string>('');
 
     const { setProducts } = useProductContext();
-
+    
+    console.log(process.env.NEXT_PUBLIC_IP_ADDRESS);
     const handelSubmit = async (e:any) => {
         e.preventDefault();
      const response = await handler({
@@ -19,7 +20,7 @@ const SearchBar = () => {
         console.log(response)
     }
   return (
-    <div className="w-[30%]    bg-white flex items-center p-2 rounded-full border">
+    <div className="w-[30%] h-full   bg-white flex items-center p-2 rounded-full border">
       <form onSubmit={handelSubmit} className="flex items-center w-full">
         <input
           type="text"
