@@ -44,6 +44,7 @@ export const ProductProvider = ({ children }:{children:ReactNode}) => {
       console.error("Error:", error);
     }
   }
+  
 
   useEffect(() => {
     fetchProducts();
