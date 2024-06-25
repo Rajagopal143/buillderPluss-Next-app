@@ -170,7 +170,7 @@ const Sidebar = () => {
           className="absolute bg-white text-2xl rounded-full border p-1 right-1 top-2"
           onClick={() => {
             setShowCanvas(!showCanvas);
-            setCanvasurl(`http://23.20.122.223:10001/`);
+            setCanvasurl(`http://localhost:10001/`);
           }}
         />
         <div className="w-full h-fit flex flex-col items-center  pb-5 rounded-b-md">

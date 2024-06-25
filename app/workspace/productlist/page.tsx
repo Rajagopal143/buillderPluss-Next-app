@@ -1,5 +1,4 @@
-"use client";
-/* eslint-disable react-hooks/rules-of-hooks */
+"use client"
 import { useProductContext } from "@/contextapi/ProductContex";
 import React, { useEffect, useState } from "react";
 import { useBlueprintContext } from "@/contextapi/blueprintContext";
@@ -7,6 +6,7 @@ import SearchBar from "../../../components/SearchBar";
 import { FilterIcon } from "lucide-react";
 import { HiOutlineAdjustmentsHorizontal } from "react-icons/hi2";
 import ProductpageCard from "@/components/ProductpageCard";
+import RoomProps from "@/components/RoomProps";
 interface Product {
   No: number;
   itemImage: string;
@@ -19,20 +19,16 @@ interface ProductListProps {
   products: Product[];
 }
 const page = () => {
-  const { products }: ProductListProps = useProductContext();
-  const { setShowfilter } = useBlueprintContext();
+  const { products } = useProductContext() as ProductListProps;
+  const { setShowfilter,roomProps } = useBlueprintContext();
   console.log(products);
-  if (products.length == 0) {
-    return (
-      <div>
-        No products loaded
-      </div>
-    );
-  }
+  
   return (
     <>
       <div className="flex w-full  h-full relative">
-        <div className="flex flex-wrap justify-center overflow-y-scroll scrollbar  flex-1 mt-4 gap-5 px-3 mb-10">
+        <div
+          className="flex flex-wrap justify-left
+         overflow-y-scroll scrollbar  flex-1 mt-4 gap-5 px-3 mb-10">
           {products &&
             products.map((product: Product, index: number) => (
               <ProductpageCard

@@ -44,7 +44,7 @@ export const ProductProvider = ({ children }:{children:ReactNode}) => {
       console.error("Error:", error);
     }
   }
-  
+
 
   useEffect(() => {
     fetchProducts();
@@ -66,6 +66,10 @@ export const ProductProvider = ({ children }:{children:ReactNode}) => {
   );
 };
 
-export function useProductContext() {
- return useContext(ProductContext);
-}
+export const useProductContext = () => {
+  const context = useContext(ProductContext);
+  if (!context) {
+    throw new Error("useProductContext must be used within a ProductProvider");
+  }
+  return context;
+};

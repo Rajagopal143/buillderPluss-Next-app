@@ -8,9 +8,11 @@ import { Navbar } from "@/components/NavBar";
 import Filter from "@/components/Filter";
 import RoomDetails from "@/components/RoomDetails";
 import Sidebar from "@/components/Sidebar";
+import RoomProps from "@/components/RoomProps";
 
 const workspacelayout = ({ children }: { children: React.ReactNode }) => {
-  const { showFilter, setShowfilter, walldetails } = useBlueprintContext();
+  const { showFilter, setShowfilter, walldetails, roomProps } =
+    useBlueprintContext();
   const [sidebar, setSidebar] = useState<Boolean>(true)
   const [roomDetails, setroomDetails] = useState<Boolean>(false)
   const [ShowProduct, setShowProduct] = useState<Boolean>(false);
@@ -34,6 +36,7 @@ const workspacelayout = ({ children }: { children: React.ReactNode }) => {
           </>
         )}
         {walldetails ? <WallDetails props={walldetails} /> : null}
+        {roomProps ? <RoomProps room={roomProps} /> : null}
       </div>
     </div>
   );

@@ -76,18 +76,18 @@ const AddProducts = ({
 
   return (
     <div className="w-full h-full fixed flex items-center justify-center top-0 left-0 bg-[#00000063]  backdrop-blur-sm">
-      <div className=" w-[50vw] h-[80vh] relative  bg-white overflow-y-scroll scrollbar   border  rounded-md">
-        <div className="absolute z-50 -right-5">
+      <div className=" w-[50vw] h-[80vh] relative  bg-white overflow-y-scroll    border  rounded-md">
+        <h1 className="font-bold text-2xl ml-3 mt-3 sticky top-0 bg-white py-2 flex  justify-between">
+          {roomName}
+        <div className="static z-50 top-0 right-1">
           <RxCross2
             className="text-3xl shadow rounded-full p-1  bg-[#ffffff93] backdrop-blur-sm "
             onClick={() => setShowProducts(false)}
           />
         </div>
-        <h1 className="font-bold text-2xl ml-3 mt-3 sticky top-0 bg-white py-2 flex  justify-between">
-          {roomName}
         </h1>
 
-        <div className="flex flex-wrap items-start justify-center overflow-y-scroll scrollbar  flex-1 mt-4 gap-5 px-3 mb-10">
+        <div className="flex flex-wrap items-start  md:justify-center   flex-1 mt-4 gap-5  mb-10">
           {products &&
             products.map((product: Product, index: number) => (
               <ProductCard
@@ -98,12 +98,11 @@ const AddProducts = ({
                 price={product.price}
                 filepath={product.filepath}
                 setSelectedList={setSelectedList}
-                seletedList={seletedList}
+                seletedList={seletedList} 
               />
             ))}
-        </div>
-        <div className="w-full h-[80px] bg-white sticky bottom-[-1px] flex justify-between items-center px-3  ">
-          <div className="flex overflow-x-scroll scrollbar">
+        <div className="w-full h-[80px] fixed bg-white select-none bottom-[-1px] flex justify-between items-center px-3  ">
+          <div className="flex  ">
             {seletedList &&
               seletedList.map((product: Product, index: any) => (
                 <div key={index} className="relative w-20 h-18">
@@ -133,10 +132,11 @@ const AddProducts = ({
             <SearchBar />
           </div>
           <Button
-            className=" right-3 top-3"
+            className="absolute right-3 top-3"
             onClick={() => handelSubmitProduct()}>
             Submit
           </Button>
+        </div>
         </div>
       </div>
     </div>

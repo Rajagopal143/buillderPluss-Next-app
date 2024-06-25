@@ -1,3 +1,4 @@
+"use client"
 import { useProductContext } from '@/contextapi/ProductContex';
 import { SearchIcon } from 'lucide-react'
 import { NextApiRequest, NextApiResponse } from 'next';
@@ -8,7 +9,6 @@ const SearchBar = () => {
 
     const { setProducts } = useProductContext();
     
-    console.log(process.env.NEXT_PUBLIC_IP_ADDRESS);
     const handelSubmit = async (e:any) => {
         e.preventDefault();
      const response = await handler({

@@ -36,7 +36,7 @@ const WallForm = ({ wallId }:{wallId:number}) => {
         }
 
     try {
-      const response = await fetch("http://localhost:4000/api/addwallprops", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_IP_ADDRESS}:4000/api/addwallprops`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -59,9 +59,9 @@ const WallForm = ({ wallId }:{wallId:number}) => {
     }
   };
   return (
-    <div className="flex flex-col px-5 w-full h-full">
-      <form action={addwall} className="flex flex-col gap-3 mt-4">
-        <h3 className="font-bold text-1xl">Directions</h3>
+    <div className="flex flex-col px-4 w-full h-full">
+      <form action={addwall} className="flex flex-col gap-2 mt-4">
+        <h3 className="font-bold text-1xl">Directions:</h3>
         <Select name="direction">
           <SelectTrigger className="w-[180px] ">
             <SelectValue placeholder="Select Direction" />
