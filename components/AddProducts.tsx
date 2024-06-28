@@ -21,12 +21,12 @@ interface ProductListProps {
   products: Product[];
 }
 const AddProducts = ({
-  roomName,
+  spaceCode,
   setShowProducts,
   clickedRoom,
   selectedProduct=[],
 }: {
-  roomName: string;
+  spaceCode: string;
   setShowProducts: any;
   clickedRoom: any;
     selectedProduct: any;
@@ -40,7 +40,8 @@ const AddProducts = ({
     setSelectedList(selectedProduct);
   }, [clickedRoom]);
   const handelSubmitProduct = async () => {
-    const data = { roomName: roomName, products: seletedList };
+    const data = { spaceCode: spaceCode, products: seletedList };
+    console.log(data);
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_IP_ADDRESS}:4000/api/productoroom`,
@@ -60,7 +61,6 @@ const AddProducts = ({
       const result = await response.json();
 
       setShowProducts(false);
-      revalidatePath("/workspace");
       console.log("Success:", result);
     } catch (error) {
       console.error("Error:", error);

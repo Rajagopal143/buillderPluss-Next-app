@@ -15,7 +15,7 @@ import { Button } from './ui/button';
 import { toast } from 'sonner';
 
 const RoomProps = ({ room }:{room:any}) => {
-  const [spaceCode, setspaceCode] = useState<string>();
+  const [spaceCode, setspaceCode] = useState<string>(room.spaceCode);
   const [usagetype, setusagetype] = useState<string>();
   const [ahuZone, setahuZone] = useState<string|null>();
   const [ahuZonelist, setahuZonelist] = useState<Array|null>();
@@ -78,6 +78,8 @@ const RoomProps = ({ room }:{room:any}) => {
           type="text"
           id="spaceCode"
           placeholder="Space Code"
+          value={room.spaceCode}
+          disabled
           onChange={(e) => setspaceCode(e.target.value)}
           className="py-2 border-2 border-gray ml-5  rounded-md pl-2 "
         />{" "}
@@ -120,10 +122,12 @@ const RoomProps = ({ room }:{room:any}) => {
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
-                  {ahuZonelist&& ahuZonelist.map((item:string, index:number) => (
-                    <SelectItem key={index+1} value={item}>{item}</SelectItem>
-                    
-                  ))}
+                  {ahuZonelist &&
+                    ahuZonelist.map((item: string, index: number) => (
+                      <SelectItem key={index + 1} value={item}>
+                        {item}
+                      </SelectItem>
+                    ))}
                 </SelectGroup>
               </SelectContent>
             </Select>{" "}

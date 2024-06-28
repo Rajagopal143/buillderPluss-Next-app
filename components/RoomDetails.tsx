@@ -52,7 +52,7 @@ const RoomDetails = ({ setroomDetails }: { setroomDetails: any }) => {
       </div>
       <h1 className="font-bold text-2xl"> Room Details</h1>
       {rooms &&
-        rooms.map((room: any, index:number) => (
+        rooms.map((room: any, index: number) => (
           <div key={index} className="shadow-lg mx-2 my-4 rounded-lg w-[90%] ">
             <h1
               className="text-1xl font-bold px-2 py-3 bg-slate-700 text-white rounded-lg w-full flex justify-between"
@@ -66,10 +66,10 @@ const RoomDetails = ({ setroomDetails }: { setroomDetails: any }) => {
               />
             </h1>
             {clickedRoom == room.name ? (
-              <div className="relative" >
+              <div className="relative">
                 {showProducts ? (
                   <AddProducts
-                    roomName={room.name}
+                    spaceCode={room.spaceCode}
                     setShowProducts={setShowProducts}
                     clickedRoom={clickedRoom}
                     selectedProduct={room["products"]}
@@ -101,7 +101,9 @@ const RoomDetails = ({ setroomDetails }: { setroomDetails: any }) => {
                   <span className="inline-flex">Nill</span>
                 ) : (
                   room["ExposedWall"].map((expWall: any, index: number) => (
-                    <div className="mx-4 flex items-center justify-between" key={index}>
+                    <div
+                      className="mx-4 flex items-center justify-between"
+                      key={index}>
                       <div>
                         Wall length {index + 1} :{expWall.length}
                       </div>
@@ -117,7 +119,9 @@ const RoomDetails = ({ setroomDetails }: { setroomDetails: any }) => {
                   <span className="inline-flex">Nill</span>
                 ) : (
                   room["SharedWalls"].map((shareWall: any, index: number) => (
-                    <div className="ml-4 shadow-md border w-[80%] my-3 p-2 flex items-center justify-between" key={index}>
+                    <div
+                      className="ml-4 shadow-md border w-[80%] my-3 p-2 flex items-center justify-between"
+                      key={index}>
                       <div>
                         <div>
                           Wall length {index + 1} :{shareWall.length}
