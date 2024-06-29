@@ -34,7 +34,7 @@ const RoomProps = ({ room }:{room:any}) => {
 },[])
   const handelSubmit = async() => {
     const values = {
-    roomname:room.name,  spaceCode,usagetype,ahuZone
+    roomname:room.name,spaceCode,usagetype,ahuZone
     }
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_IP_ADDRESS}:4000/api/addroomprop`, {
