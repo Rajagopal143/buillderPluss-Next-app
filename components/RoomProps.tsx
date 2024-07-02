@@ -18,7 +18,7 @@ const RoomProps = ({ room }:{room:any}) => {
   const [spaceCode, setspaceCode] = useState<string>(room.spaceCode);
   const [usagetype, setusagetype] = useState<string>();
   const [ahuZone, setahuZone] = useState<string|null>();
-  const [ahuZonelist, setahuZonelist] = useState<Array|null>();
+  const [ahuZonelist, setahuZonelist] = useState<Array<any>|null>([]);
   const { setRoomProps } = useBlueprintContext();
 
   useEffect(() => {
